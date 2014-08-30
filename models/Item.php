@@ -27,6 +27,29 @@ class Item {
 		$this->amount = $amount;
 		$this->unit = $unit;
 		$this->useBy = $useBy;
+		
+		//adds the item to the fridge
+		Fridge::getInstance()->addItem( $this );
+	}
+	
+	/**
+	 * Returns the name of the item
+	 * 
+	 * @return string
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
+	
+	/**
+	 * Returns the "use by" timestamp
+	 * 
+	 * @return int
+	 */
+	public function getUseBy()
+	{
+		return $this->useBy;
 	}
 }
 ?>

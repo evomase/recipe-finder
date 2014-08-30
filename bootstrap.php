@@ -13,4 +13,5 @@ spl_autoload_register( function( $class ){
 
 //define constants
 define( 'REQUEST_TIME', $_SERVER['REQUEST_TIME'] );
+define( 'BASE_PATH', __DIR__ );
 ?>
