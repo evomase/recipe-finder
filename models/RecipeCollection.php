@@ -53,5 +53,6 @@ class RecipeCollection extends ArrayObject {
 		$this->uasort( function( Recipe $a, Recipe $b ){
 			return $a->compareTo( $b );
 		});
+	}
 }
 ?>
