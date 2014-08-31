@@ -71,12 +71,11 @@ class Fridge {
 		
 		while( ( $data = fgetcsv( $handle, 1000 ) ) !== false )
 		{
-			$items[] = $data;
-			
-			if ( preg_match( '/(\d{2})\/(\d{2})\/(\d{4})/i', $data[3], $matches ) )
-				$data[3] = strtotime( $matches[2] . '/' . $matches[1] . '/' . $matches[3] );
+			$data[3] = DateTime::createFromFormat( 'd/m/Y', $data[3] )->getTimestamp();
 			
 			new Item( $data[0], $data[1], $data[2], $data[3] );
+			
+			$items[] = $data;
 		}
 		
 		return ( !empty( $items ) );

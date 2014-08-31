@@ -1,4 +1,9 @@
 <?php
+/**
+ * A collection class that stores all recipes. It extends the ArrayObject class
+ * 
+ * @author David Ogilo
+ */
 class RecipeCollection extends ArrayObject {
 	
 	private static $_instance;
