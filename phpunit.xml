@@ -8,6 +8,12 @@
 			<directory>tests/models</directory>
 		</testsuite>
 	</testsuites>
+	
+	<filter>
+  		<blacklist>
+  		    <file>tests</file>
+  		</blacklist>
+  	</filter>
  	 
 	<logging>
 		<log type="coverage-html" target="logs/coverage" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70"/>
