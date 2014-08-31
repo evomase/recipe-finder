@@ -6,11 +6,15 @@
  */
 class Recipe {
 	
+	const FIELD_NAME = 'name';
+	const FIELD_INGREDIENTS = 'ingredients';
+	
 	private $name;
 	private $ingredients;
 	private $outOfDate;
 	private $items;
 	private $minOutOfDate;
+	private $valid;
 	
 	/**
 	 * Constructor
@@ -23,8 +27,8 @@ class Recipe {
 	{
 		$this->name = $name;
 		$this->ingredients = $ingredients;
-		$this->outOfDate = false;
-		$this->minOutOfDate = REQUEST_TIME;
+		$this->minOutOfDate = 0;
+		$this->valid = false;
 		
 		$this->populateItems();
 		
@@ -44,13 +48,20 @@ class Recipe {
 		
 		foreach( $this->ingredients as $ingredient )
 		{
-			if ( !( $item = Fridge::getInstance()->getItem( $ingredient['item'] ) ) )
-				continue;
-			
+			if ( !( $item = Fridge::getInstance()->getItem( $ingredient[Item::FIELD_NAME] ) ) || $ingredient[Item::FIELD_AMOUNT] > $item->getAmount() )
+			{
+				$this->valid = false;
+				$this->items = array();
+				
+				break;
+			}
+		
 			$useBy = $item->getUseBy();
 			
-			$this->outOfDate = ( $useBy < REQUEST_TIME )? true : false;
-			$this->minOutOfDate = ( $useBy <= $this->minOutOfDate )? $useBy : $this->minOutOfDate;
+			$this->valid = ( $useBy >= REQUEST_TIME )?: false;
+			$this->minOutOfDate = ( empty( $this->minOutOfDate ) || $useBy <= $this->minOutOfDate )? $useBy : $this->minOutOfDate;
+			
+			$this->items[$item->getName()] = $item;
 		}
 	}
 	
@@ -62,6 +73,26 @@ class Recipe {
 	public function getName()
 	{
 		return $this->name;
+	}
+	
+	/**
+	 * Returns the array of items associated to this recipe
+	 * 
+	 * @return array
+	 */
+	public function getItems()
+	{
+		return $this->items;
+	}
+	
+	/**
+	 * Checks if this recipe is valid, i.e all items are retrieved and not out of date
+	 * 
+	 * @return boolean
+	 */
+	public function isValid()
+	{
+		return $this->valid;
 	}
 	
 	/**

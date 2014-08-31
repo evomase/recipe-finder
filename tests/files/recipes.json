@@ -1,0 +1,25 @@
+[
+	{
+		"name": "grilled cheese on toast",
+		"ingredients": [
+			{ "item": "bread", "amount": "2" },
+			{ "item": "cheese", "amount": "2" }
+		]
+	},
+	
+	{
+		"name": "salad sandwich",
+		"ingredients": [
+			{ "item": "bread", "amount": "2" },
+			{ "item": "mixed salad", "amount": "200" }
+		]
+	},
+	
+	{
+		"name": "butter on toast",
+		"ingredients": [
+			{ "item": "bread", "amount": "2" },
+			{ "item": "butter", "amount": "10" }
+		]
+	}
+]

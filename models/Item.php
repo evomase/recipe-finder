@@ -5,6 +5,10 @@
  * @author David Ogilo
  */
 class Item {
+	const FIELD_NAME = 'item';
+	const FIELD_AMOUNT = 'amount';
+	const FIELD_UNIT = 'unit';
+	const FIELD_USE_BY = 'use_by';
 	
 	private $name;
 	private $amount;
@@ -50,6 +54,16 @@ class Item {
 	public function getUseBy()
 	{
 		return $this->useBy;
+	}
+	
+	/**
+	 * Returns the amount of the item
+	 * 
+	 * @return int
+	 */
+	public function getAmount()
+	{
+		return $this->amount;
 	}
 }
 ?>

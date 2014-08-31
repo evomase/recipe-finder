@@ -41,7 +41,12 @@ class RecipeCollection extends ArrayObject {
 	 */
 	public function addRecipe( Recipe $recipe )
 	{
-		$this->offsetSet( $recipe->getName(), $recipe );
+		$name = $recipe->getName();
+		
+		if ( $this->offsetExists( $name ) )
+			$this->offsetUnset( $name );
+		
+		$this->offsetSet( $name, $recipe );
 	}
 	
 	/**
@@ -53,6 +58,55 @@ class RecipeCollection extends ArrayObject {
 		$this->uasort( function( Recipe $a, Recipe $b ){
 			return $a->compareTo( $b );
 		});
+	}
+	
+	/**
+	 * Returns a single valid recipe 
+	 * 
+	 * @return null|Recipe
+	 */
+	public function getValidRecipe()
+	{
+		if ( !( $this->count() ) )
+			return null;
+		
+		$this->asort();
+		
+		$recipes = array_filter( $this->getArrayCopy(), function( Recipe $recipe ){
+			return $recipe->isValid();
+		});
+		
+		if ( empty( $recipes ) )
+			return null;
+		
+		return current( $recipes );
+	}
+	
+	/**
+	 * Import recipes from a JSON file
+	 * 
+	 * @param string $file
+	 * @return boolean
+	 */
+	public function importFromJSON( $file )
+	{
+		if ( !is_file( $file ) || !is_readable( $file ) || !( $recipes = file_get_contents( $file ) ) )
+			return false;
+		
+		$recipes = @json_decode( $recipes, true );
+		
+		if ( empty( $recipes ) )
+			return false;
+		
+		foreach( $recipes as $recipe )
+		{
+			if ( empty( $recipe[Recipe::FIELD_NAME] ) || empty( $recipe[Recipe::FIELD_INGREDIENTS] ) )
+				continue;
+			
+			new Recipe( $recipe[Recipe::FIELD_NAME], $recipe[Recipe::FIELD_INGREDIENTS] );
+		}
+		
+		return true;
 	}
 }
 ?>

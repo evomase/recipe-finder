@@ -15,10 +15,8 @@ class FridgeTest extends PHPUnit_Framework_TestCase {
 	
 	public function testImportItemsFromCSV()
 	{
-		$file = BASE_PATH . '/tests/files/items.csv';
-		
 		$this->assertFalse( Fridge::getInstance()->importItemsFromCSV( __DIR__ ) );
-		$this->assertTrue( Fridge::getInstance()->importItemsFromCSV( $file ) );
+		$this->assertTrue( Fridge::getInstance()->importItemsFromCSV( BASE_PATH . '/tests/files/items.csv' ) );
 		$this->assertCount( 5, Fridge::getInstance()->getItems() );
 	}
 }
