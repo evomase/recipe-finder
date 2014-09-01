@@ -12,3 +12,8 @@ Testing
 -------
 
 `phpunit --color`
+
+Code coverage
+-------------
+
+Once you run phpunit, you can find the files in `logs/coverage`
