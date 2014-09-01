@@ -10,6 +10,11 @@ class Item {
 	const FIELD_UNIT = 'unit';
 	const FIELD_USE_BY = 'use_by';
 	
+	const UNIT_SLICES = 'slices';
+	const UNIT_GRAMS = 'grams';
+	const UNIT_MILLILITERS = 'milliliters';
+	const UNIT_OF = 'of';
+	
 	private $name;
 	private $amount;
 	private $unit;

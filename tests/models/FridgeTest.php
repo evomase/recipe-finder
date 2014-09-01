@@ -3,7 +3,7 @@ class FridgeTest extends PHPUnit_Framework_TestCase {
 	
 	public function testGetItems()
 	{
-		new Item( 'fridge test', 1, ItemUnit::SLICES, REQUEST_TIME );
+		new Item( 'fridge test', 1, Item::UNIT_SLICES, REQUEST_TIME );
 		$this->assertNotEmpty( Fridge::getInstance()->getItems() );
 	}
 	
