@@ -19,7 +19,7 @@ class FinderTest extends PHPUnit_Framework_TestCase {
 		Finder::getInstance()->start();
 		
 		//test for invalid recipes json file
-		$_options = $option;
+		$_options = $options;
 		$_options[Finder::OPTION_RECIPES] = null;
 		Finder::getInstance()->setOptions( $_options );
 		
